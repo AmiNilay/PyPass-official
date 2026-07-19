@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PyPass Manager - Secure Desktop Vault</title>
+    
+    <!-- Material Symbols & Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    
+    <style>
+        :root {
+            /* Material 3 Tonal Palette - Light Mode */
+            --md-sys-color-primary: #0061a4;
+            --md-sys-color-on-primary: #ffffff;
+            --md-sys-color-primary-container: #d1e4ff;
+            --md-sys-color-on-primary-container: #001d36;
+            --md-sys-color-secondary: #535f70;
+            --md-sys-color-surface: #fdfcff;
+            --md-sys-color-on-surface: #1a1c1e;
+            --md-sys-color-surface-variant: #dfe3eb;
+            --md-sys-color-on-surface-variant: #43474e;
+            --md-sys-color-outline: #73777f;
+            --shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        /* Dark Mode Palette */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --md-sys-color-primary: #a1c9ff;
+                --md-sys-color-on-primary: #003258;
+                --md-sys-color-primary-container: #00497d;
+                --md-sys-color-on-primary-container: #d1e4ff;
+                --md-sys-color-surface: #1a1c1e;
+                --md-sys-color-on-surface: #e2e2e6;
+                --md-sys-color-surface-variant: #43474e;
+                --md-sys-color-on-surface-variant: #c3c7cf;
+                --md-sys-color-outline: #8d9199;
+                --shadow: 0 4px 12px rgba(0,0,0,0.3);
+            }
+        }
+
+        * { box-sizing: border-box; transition: background-color 0.3s, color 0.3s, transform 0.2s; }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            background-color: var(--md-sys-color-surface);
+            color: var(--md-sys-color-on-surface);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        /* --- Layout Components --- */
+        header {
+            padding: 80px 20px 60px;
+            text-align: center;
+            background: linear-gradient(180deg, var(--md-sys-color-primary-container) 0%, var(--md-sys-color-surface) 100%);
+        }
+
+        header h1 {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            margin: 0;
+            font-weight: 700;
+            color: var(--md-sys-color-on-primary-container);
+            letter-spacing: -1.5px;
+        }
+
+        nav {
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            padding: 10px;
+        }
+
+        .nav-pill {
+            background-color: var(--md-sys-color-surface-variant);
+            padding: 12px 24px;
+            border-radius: 100px;
+            text-decoration: none;
+            color: var(--md-sys-color-on-surface-variant);
+            font-weight: 500;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-pill:hover {
+            background-color: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
+            transform: translateY(-2px);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* --- Material Cards --- */
+        .card {
+            background-color: var(--md-sys-color-surface);
+            border: 1px solid var(--md-sys-color-surface-variant);
+            border-radius: 28px;
+            padding: 40px;
+            margin-bottom: 32px;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            color: var(--md-sys-color-primary);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-top: 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .feature-item {
+            background-color: var(--md-sys-color-surface-variant);
+            padding: 24px;
+            border-radius: 24px;
+            border: 1px solid transparent;
+        }
+
+        .feature-item:hover {
+            border-color: var(--md-sys-color-primary);
+        }
+
+        .material-symbols-rounded {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+            color: var(--md-sys-color-primary);
+            font-size: 32px;
+        }
+
+        /* --- Interactive Elements --- */
+        .download-card {
+            background-color: var(--md-sys-color-primary-container);
+            color: var(--md-sys-color-on-primary-container);
+            text-align: center;
+            padding: 60px 40px;
+            border-radius: 40px;
+            margin: 60px 0;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background-color: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
+            padding: 20px 40px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+            transform: scale(1.05);
+        }
+
+        /* Back to Top Button */
+        #backToTop {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            background-color: var(--md-sys-color-primary-container);
+            color: var(--md-sys-color-on-primary-container);
+            border: none;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+        }
+
+        #backToTop:hover {
+            background-color: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
+        }
+
+        /* --- Screenshots --- */
+        .screenshot-frame {
+            border-radius: 24px;
+            overflow: hidden;
+            border: 4px solid var(--md-sys-color-surface-variant);
+            margin-bottom: 40px;
+            box-shadow: var(--shadow);
+        }
+
+        .screenshot-frame img { width: 100%; display: block; }
+
+        footer {
+            background-color: var(--md-sys-color-surface-variant);
+            padding: 80px 20px;
+            text-align: center;
+            border-radius: 40px 40px 0 0;
+        }
+
+        footer a { color: var(--md-sys-color-primary); text-decoration: none; font-weight: 600; }
+
+        .chip-group { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+        .chip {
+            background: var(--md-sys-color-surface);
+            padding: 6px 16px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            border: 1px solid var(--md-sys-color-outline);
+        }
+    </style>
+</head>
+<body>
+
+    <button id="backToTop" title="Back to Top">
+        <span class="material-symbols-rounded">arrow_upward</span>
+    </button>
+
+    <header>
+        <h1>PyPass Manager</h1>
+        <p>A secure, beautiful, and local-first vault for your digital security.</p>
+    </header>
+
+    <nav>
+        <a href="#about" class="nav-pill">About</a>
+        <a href="#features" class="nav-pill">Features</a>
+        <a href="#download" class="nav-pill">Download</a>
+    </nav>
+
+    <div class="container">
+        <section id="about">
+            <div class="screenshot-frame">
+                <img src="pypass_screenshot.png" alt="PyPass Interface">
+            </div>
+            <div class="card">
+                <h2><span class="material-symbols-rounded">security</span> Private by Design</h2>
+                <p>PyPass Manager stores your data where it belongs: on your computer. Using <strong>AES-256 encryption</strong>, your passwords stay offline and out of reach from hackers. No subscriptions, no cloud breaches, just pure security.</p>
+            </div>
+        </section>
+
+        <section id="features">
+            <h2><span class="material-symbols-rounded">auto_awesome</span> Features</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <span class="material-symbols-rounded">lock</span>
+                    <h3>Vault Security</h3>
+                    <p>Encryption so strong even we can't see your data. Only your master password unlocks the vault.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="material-symbols-rounded">password</span> <!-- Fixed Icon -->
+                    <h3>Generator</h3>
+                    <p>Create unbreakable passwords with customizable length and character sets instantly.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="material-symbols-rounded">content_paste_go</span>
+                    <h3>Smart Clipboard</h3>
+                    <p>Copy-paste without fear. The application wipes your clipboard automatically after a few seconds.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="download">
+            <div class="download-card">
+                <h2>Ready to secure your accounts?</h2>
+                <p>Download the latest version for Windows 10/11.</p><br>
+                <a href="https://github.com/AmiNilay/PyPass-Manager/releases/download/v1.0.0/pypass-manager-v1.0.0-windows-x64.zip" class="btn-primary">
+                    <span class="material-symbols-rounded">download</span>
+                    Download v1.0.0
+                </a>
+            </div>
+        </section>
+
+        <section id="creator">
+            <div class="card">
+                <h2><span class="material-symbols-rounded">code</span> Developer's Note</h2>
+                <p>Hello! I'm <strong>Nilay Naha</strong>. I built PyPass Manager to empower users to take control of their own data. The project is open source and always will be.</p>
+                <h3>Upcoming Roadmap:</h3>
+                <div class="chip-group">
+                    <span class="chip">Auto-Lock</span>
+                    <span class="chip">Dark Mode UI</span>
+                    <span class="chip">TOTP Support</span>
+                    <span class="chip">Secure Notes</span>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; <span id="year"></span> PyPass Manager &bull; Created by <a href="https://github.com/AmiNilay">Nilay Naha</a></p>
+        <p>Support: <a href="mailto:niloynaha2003@gmail.com">niloynaha2003@gmail.com</a></p>
+    </footer>
+
+    <script>
+        // Auto-update year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Back to Top Logic
+        const btt = document.getElementById("backToTop");
+        window.onscroll = function() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                btt.style.display = "flex";
+            } else {
+                btt.style.display = "none";
+            }
+        };
+        btt.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
+    </script>
+</body>
+</html>
