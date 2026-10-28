@@ -1,27 +1,30 @@
-# 🛡️ PyPass Manager Landing Page
+# PyPass Manager — Official Website
 
-The official, modern landing page for **PyPass Manager**, a secure and local-first desktop password manager. 
+The landing page for **[PyPass Manager](https://github.com/AmiNilay/PyPass-Manager)**, a free, offline password manager for Windows.
 
-## 🎨 Design Language
-This website uses **Material Design 3 (Material You)** principles:
-- **Tonal Palettes:** Dynamic color shifting between light and dark modes.
-- **State-of-the-Art UI:** Extra large border-radius, floating action buttons, and blurred glass navigation.
-- **Material Symbols:** Updated Google Rounded icon set.
+**Live site:** https://aminilay.github.io/PyPass-official/
 
-## 🚀 Key Website Features
-- **Dynamic Theme Switcher:** Manual toggle between Light and Dark mode with persistent local storage.
-- **Auto-Updating Footer:** JavaScript handles the copyright year automatically.
-- **Responsive Layout:** Optimized for all screen sizes from mobile to ultra-wide monitors.
-- **Smooth Interaction:** CSS transitions for a high-end application feel.
+## What's on the page
+- Hero section with the real app dashboard and Windows download buttons
+- Spotlights on the v2.0 security features: **breach check** (Have I Been Pwned, k-anonymity), **phishing lookalike guard** and **Shamir emergency access**
+- Overview of all features, how the encryption works, a screenshot gallery, download steps and an FAQ
 
-## 📁 Repository Structure
-- `index.html`: The main website structure and styling.
-- `pypass_screenshot.png`: Interface preview (ensure this file is present).
+## Design
+- Matches the app's graphite design system (dark by default, one blue accent), using Inter and JetBrains Mono
+- Light and dark themes: follows the OS setting, and the manual toggle is remembered
+- Responsive from phones to wide screens, respects reduced-motion settings, and uses inline SVG icons (no icon-font download)
+- A single static `index.html` with no build step, served by GitHub Pages
 
-## 👤 Author
-**Nilay Naha**
-- GitHub: [@AmiNilay](https://github.com/AmiNilay)
-- Contact: niloynaha2003@gmail.com
+## Structure
+```
+index.html                  page markup, styles and scripts
+assets/icon.png             app icon / favicon
+assets/screenshots/*.png    screenshots of the app
+```
 
-## 📄 License
-This project is open-source and licensed under the MIT License.
+## Updating
+- **Download buttons** link to `releases/latest` of the app repo, so a new release appears on the site automatically.
+- **Screenshots** are copied from `docs/screenshots/` in the app repo.
+
+## Author
+**Nilay Naha** · [@AmiNilay](https://github.com/AmiNilay) · niloynaha2003@gmail.com
